@@ -1,12 +1,10 @@
-import React, { PureComponent } from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-
-
-export default class CameraScreen extends PureComponent  {
-  render() {
-    return (
-      <View style={styles.container}>
+function CameraScreen(props) {
+  const { navigation } = props
+  return (
+<View style={styles.container}>
         <RNCamera
           ref={ref => {
             this.camera = ref;
@@ -34,17 +32,16 @@ export default class CameraScreen extends PureComponent  {
           </TouchableOpacity>
         </View>
       </View>
-    );
-  }
-
-  takePicture = async() => {
-    if (this.camera) {
-      const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
-    }
-  };
+  )
 }
+
+takePicture = async() => {
+  if (this.camera) {
+    const options = { quality: 0.5, base64: true };
+    const data = await this.camera.takePictureAsync(options);
+    console.log(data.uri);
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -66,4 +63,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     margin: 20,
   },
-});
+  text: {
+    color: '#101010',
+    fontSize: 24,
+    fontWeight: 'bold'
+  },
+  buttonContainer: {
+    backgroundColor: '#222',
+    borderRadius: 5,
+    padding: 10,
+    margin: 20
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#fff'
+  }
+})
+
+export default CameraScreen
+
