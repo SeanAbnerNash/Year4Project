@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
-function CameraScreen(props) {
-  const { navigation } = props
+
+class CameraScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    //let objCopy = Object.assign({}, displayBlock);
+   // objCopy.accuracyPercentText = 50;
+
+    //this.state = {
+      //resultArray: [displayBlock,objCopy]
+    //};
+  }
+
+ 
+
+render() {
+  const { navigation } = this.props.navigation;
   return (
 <View style={styles.container}>
         <RNCamera
@@ -28,7 +43,7 @@ function CameraScreen(props) {
 
         />
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-          <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
+          <TouchableOpacity onPress={this.sendToServer.bind(this)} style={styles.capture}>
             <Text style={{ fontSize: 14 }}> SNAP </Text>
           </TouchableOpacity>
         </View>
@@ -40,9 +55,33 @@ takePicture = async() => {
   if (this.camera) {
     const options = { quality: 0.5, base64: true };
     const data = await this.camera.takePictureAsync(options);
-    console.log(data.uri);
+    console.log("FINSIHED");
+    return data;
   }
 };
+
+sendToServer = async() =>
+{
+  console.log("STARTING TO TAKE PIC");
+  var picture = await this.takePicture();
+  console.log("FINISHED WITH THE PIC");
+  /*
+  Put a loading screen here.
+  Stuff Happens server gets data then sends it back.
+  */
+  var pictureData = {
+    resultValue: 11,
+    accuracyPercentText: 1111,
+    dateValue: '11/11/11',
+    timeValue: '11:11',
+    resultState: 1
+  }
+
+  this.props.navigation.setParams({ name: 'Lucy' });
+  this.props.navigation.navigate('Result');
+};
+
+}
 
 const styles = StyleSheet.create({
   container: {

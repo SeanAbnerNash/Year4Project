@@ -44,7 +44,7 @@ export default class ResultBlock extends Component
     return (
         <View style={{
             height: 120,
-            width: 350,
+            width: 330,
             backgroundColor: '#9ADEEF',
             flexDirection: 'row',
             padding: 5,
