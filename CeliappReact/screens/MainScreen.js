@@ -18,10 +18,22 @@ function MainScreen(props) {
         <Text style={styles.buttonText}>Go to Camera Screen</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity onPress={this.doSomethingWithServer.bind(this)} style={styles.buttonContainer}>
+            <Text style={{ fontSize: 14 }}> SNAP </Text>
+          </TouchableOpacity>
+
+
+
 
     </View>
   )
 }
+
+doSomethingWithServer = async() =>
+{
+  console.log("STARTING TO TAKE PIC");
+
+};
 
 const styles = StyleSheet.create({
   container: {

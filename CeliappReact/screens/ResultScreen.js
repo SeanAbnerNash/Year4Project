@@ -2,7 +2,51 @@ import ResultBlock from '../components/ResultDisplay';
 import React, { Component } from 'react';
 import { StyleSheet,ScrollView, View, Text, TouchableOpacity } from 'react-native'
 
-class ResultScreen extends Component {
+class ResultScreen extends Component 
+
+{
+  picture = require('../assets/images/cross.png');
+
+  state = {   
+     data: '',
+     resultArray: [displayBlock]
+  }
+  componentDidMount = () => {
+    fetch('http://34.255.119.32:5000/home', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        answer: 'Hello',
+        UserResult: 'Hello',
+        Username: 'Hello'
+
+      }),
+    })
+    .then(response => response)
+    .then(function (response) {
+      console.log(response);
+      console.log("HEre");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+/*
+
+{
   constructor(props) {
     super(props);
 
@@ -10,14 +54,18 @@ class ResultScreen extends Component {
     objCopy.accuracyPercentText = 50;
 
     this.state = {
-      resultArray: [displayBlock,objCopy,displayBlock,objCopy,displayBlock,objCopy,displayBlock,objCopy,displayBlock,objCopy]
+      data: '',
+      resultArray: [displayBlock],
+      
     };
-  }
 
+    }
+*/
   render() {
-    const { navigation } = this.props;
-    //const { params } = this.props.navigation.state;
-   // console.log(data);
+    const { navigation,route } = this.props;
+    //const { data } = route.params
+    //console.log(this.props);
+    //console.log(data);
     return(    
       <ScrollView>
     <View style={styles.container}>
@@ -27,8 +75,14 @@ class ResultScreen extends Component {
         onPress={() => navigation.navigate('Home')}>
         <Text style={styles.buttonText}>Go to Home Screen</Text>
       </TouchableOpacity>
+
       <Text> RESULTS!</Text>
-      
+      <TouchableOpacity onPress={this.doSomethingWithServer.bind(this)} style={styles.buttonContainer}>
+            <Text style={{ fontSize: 14 }}> SNAP </Text>
+          </TouchableOpacity>
+
+
+
       {this.state.resultArray.map((result) => {
             return (
             <TouchableOpacity
@@ -43,6 +97,22 @@ class ResultScreen extends Component {
     </View>
     </ScrollView>)
   }
+
+  doSomethingWithServer = async() =>
+  {
+    const timeout = new Promise((resolve, reject) => {
+      setTimeout(reject, 300, 'Request timed out');
+  });
+
+  const request = fetch('34.255.119.32');
+
+  return Promise
+      .race([timeout, request])
+      .then(response => alert('It worked :)'))
+      .catch(error => alert('It timed out :('));
+  
+  };
+
 }
 
 export default ResultScreen

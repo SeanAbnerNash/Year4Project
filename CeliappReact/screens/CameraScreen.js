@@ -76,9 +76,7 @@ sendToServer = async() =>
     timeValue: '11:11',
     resultState: 1
   }
-
-  this.props.navigation.setParams({ name: 'Lucy' });
-  this.props.navigation.navigate('Result');
+  this.props.navigation.navigate('Result', {data: 1});
 };
 
 }
