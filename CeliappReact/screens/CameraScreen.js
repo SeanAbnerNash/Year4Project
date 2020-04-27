@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 
@@ -10,9 +10,9 @@ class CameraScreen extends Component {
     //let objCopy = Object.assign({}, displayBlock);
    // objCopy.accuracyPercentText = 50;
 
-    //this.state = {
-      //resultArray: [displayBlock,objCopy]
-    //};
+    this.state = {
+      loading: false
+    };
   }
 
  
@@ -42,6 +42,8 @@ render() {
           }}
 
         />
+        <ActivityIndicator size="large" color="#ffffff" animating={this.state.loading}/>
+
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <TouchableOpacity onPress={this.sendToServer.bind(this)} style={styles.capture}>
             <Text style={{ fontSize: 14 }}> SNAP </Text>
@@ -62,6 +64,7 @@ takePicture = async() => {
 
 sendToServer = async() =>
 {
+  this.setState({loading: true});
   console.log("STARTING TO TAKE PIC");
   var picture = await this.takePicture();
   console.log("FINISHED WITH THE PIC");
@@ -76,7 +79,8 @@ sendToServer = async() =>
     timeValue: '11:11',
     resultState: 1
   }
-  this.props.navigation.navigate('Result', {data: 1});
+  this.setState({loading: false});
+  this.props.navigation.navigate('Result', {data: pictureData});
 };
 
 }
