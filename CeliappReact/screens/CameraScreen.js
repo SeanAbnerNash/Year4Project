@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 class CameraScreen extends Component {
@@ -68,17 +69,31 @@ sendToServer = async() =>
   console.log("STARTING TO TAKE PIC");
   var picture = await this.takePicture();
   console.log("FINISHED WITH THE PIC");
+
+  
   /*
   Put a loading screen here.
   Stuff Happens server gets data then sends it back.
   */
   var pictureData = {
-    resultValue: 11,
-    accuracyPercentText: 1111,
-    dateValue: '11/11/11',
-    timeValue: '11:11',
-    resultState: 1
+    resultValue: 'Negative',
+    accuracyPercentText: 100,
+    UTCTimestamp: Date.now(),
+    resultState: 3
   }
+
+
+  AsyncStorage.getItem("ResultStore").then((data) => {
+    var userData = JSON.parse(data);
+    console.log(userData, 'Get Values', userData.length);
+
+    userData.push(pictureData);
+    const bookmarksString = JSON.stringify(userData);
+    AsyncStorage.setItem('ResultStore',bookmarksString);
+ }).done();
+
+
+
   this.setState({loading: false});
   this.props.navigation.navigate('Result', {data: pictureData});
 };

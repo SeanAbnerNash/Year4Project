@@ -1,59 +1,67 @@
 import ResultBlock from '../components/ResultDisplay';
 import React, { Component } from 'react';
-import { ActivityIndicator, StyleSheet,ScrollView, View, Text, TouchableOpacity } from 'react-native'
+import {StyleSheet,ScrollView, View, Text, TouchableOpacity } from 'react-native'
 import { defined } from 'react-native-reanimated';
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 class ResultScreen extends Component{
   constructor(props) {
     super(props);
-    let objCopy = Object.assign({}, displayBlock);
-    objCopy.accuracyPercentText = 50;
 
     this.state = {
-      data: '',
-      resultArray: [displayBlock],
-      
+      resultArray: []
     };
+
+    AsyncStorage.getAllKeys((err, keys) => {
+      AsyncStorage.multiGet(keys, (error, stores) => {
+        stores.map((result, i, store) => {
+          console.log({ [store[i][0]]: store[i][1] });
+          return true;
+        });
+      });
+    });
+    
   }
 
   render() {
-    const { navigation,route } = this.props;
-    //const {data} = route.params;
-    //if(data)
-    //{
-    //  console.log("DEFINED?");
-    //}
-    //else
-    //{
-    //  console.log("UNDEFINED?");
-    //}
-    //console.log(data);
+    const { navigation} = this.props;
+    AsyncStorage.getItem("ResultStore").then((data) => {
+      var userData = JSON.parse(data);
+      this.setState({resultArray:userData});
+   }).done();
+
     return(    
       <ScrollView>
     <View style={styles.container}>
       <Text style={styles.text}>Result Screen</Text>
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.buttonText}>Go to Home Screen</Text>
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Home')}>
+      <Text style={styles.buttonText}>Go to Home Screen</Text>
       </TouchableOpacity>
-
-      <Text> RESULTS!</Text>
-      {this.state.resultArray.map((result) => {
+      <Text> RESULATS!</Text>
+      
+      {this.state.resultArray.map((result,index) => {
             return (
-            <TouchableOpacity
+            <TouchableOpacity key={index}
               style={styles.resultButtonContainer}
               onPress={() => this.props.navigation.navigate('Home')}>
-                
-              <ResultBlock dataBlock={result}></ResultBlock>
-        
-            </TouchableOpacity>
-            )})}
+              <ResultBlock key={index} dataBlock={result}></ResultBlock>
+            </TouchableOpacity>)
+            })}
       
     </View>
     </ScrollView>)
   }
 }
+
+/*
+Timestamp:
+Accuracy:
+Result:
+
+*/
+
+
 
 export default ResultScreen
 

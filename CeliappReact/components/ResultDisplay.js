@@ -67,11 +67,11 @@ export default class ResultBlock extends Component
                     </Text>
 
                     <Text style={styles.baseText}>
-                        {this.state.dateText}{this.props.dataBlock.dateValue}{'\n'}{'\n'}
+                        {this.state.dateText}{new Date(this.props.dataBlock.UTCTimestamp).getUTCDate()} / {new Date(this.props.dataBlock.UTCTimestamp).getUTCMonth()+1} / {new Date(this.props.dataBlock.UTCTimestamp).getUTCFullYear()} {'\n'}{'\n'}
                     </Text>
 
                     <Text style={styles.baseText}>
-                        {this.state.timeText}{this.props.dataBlock.timeValue}{'\n'}{'\n'}
+                        {this.state.timeText}{new Date(this.props.dataBlock.UTCTimestamp).getUTCHours()+1} : {new Date(this.props.dataBlock.UTCTimestamp).getUTCMinutes()}{'\n'}{'\n'}
                     </Text>
                 </Text>
             </View>
