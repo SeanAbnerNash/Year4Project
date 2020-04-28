@@ -15,23 +15,31 @@ export default class ResultBlock extends Component
   
   renderImage(){
     let resultIcon;
+    if (this.props.dataBlock.accuracyPercentText < 50)
+    {
+      this.props.dataBlock.resultState = 3;
+    }
     switch(this.props.dataBlock.resultState) {
         case 1:
+           this.props.dataBlock.resultText = "Negative";
            resultIcon =  <Image
             style={{width: 100, height: 100}}
             source={require('../assets/images/check.png')}/>
           break;
         case 2:
+           this.props.dataBlock.resultText = "Positive";
             resultIcon =  <Image
             style={{width: 100, height: 100}}
             source={require('../assets/images/cross.png')}/>
           break;
         case 3:
+           this.props.dataBlock.resultText = "Inconclusive";
             resultIcon =  <Image
             style={{width: 100, height: 100}}
             source={require('../assets/images/question.png')}/>
            break;
         default:
+           this.props.dataBlock.resultText = "Inconclusive";
             resultIcon =  <Image
             style={{width: 100, height: 100}}
             source={require('../assets/images/question.png')}/>
@@ -59,7 +67,7 @@ export default class ResultBlock extends Component
 
                 <Text style={styles.baseText}>
                     <Text style={styles.baseText}>
-                        {this.state.resultText}{this.props.dataBlock.resultValue}{'\n'}{'\n'}
+                        {this.state.resultText}{this.props.dataBlock.resultText}{'\n'}{'\n'}
                     </Text>
 
                     <Text style={styles.baseText}>

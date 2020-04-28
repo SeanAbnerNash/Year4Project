@@ -63,6 +63,12 @@ takePicture = async() => {
   }
 };
 
+generateRandomNumber(lowerLimit, higherLimit)
+{
+  var randomNumber = Math.floor(Math.random() * higherLimit) + lowerLimit;
+  return randomNumber;
+}
+
 sendToServer = async() =>
 {
   this.setState({loading: true});
@@ -70,16 +76,20 @@ sendToServer = async() =>
   var picture = await this.takePicture();
   console.log("FINISHED WITH THE PIC");
 
-  
+
   /*
   Put a loading screen here.
   Stuff Happens server gets data then sends it back.
   */
+
+ var randomNumber = Math.floor(Math.random() * 2) + 1;
+ var randomNumber1 = Math.floor(Math.random() * 100) + 1;
+
+
   var pictureData = {
-    resultValue: 'Negative',
-    accuracyPercentText: 100,
+    accuracyPercentText: randomNumber1,
     UTCTimestamp: Date.now(),
-    resultState: 3
+    resultState: randomNumber
   }
 
 
@@ -92,10 +102,8 @@ sendToServer = async() =>
     AsyncStorage.setItem('ResultStore',bookmarksString);
  }).done();
 
-
-
   this.setState({loading: false});
-  this.props.navigation.navigate('Result', {data: pictureData});
+  this.props.navigation.navigate('Result');
 };
 
 }

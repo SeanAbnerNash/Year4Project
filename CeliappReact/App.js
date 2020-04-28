@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 export default function App() {
   var displayBlock = {
-    resultValue: 'Negative',
     accuracyPercentText: 100,
     UTCTimestamp: Date.now(),
     resultState: 3

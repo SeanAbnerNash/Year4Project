@@ -1,7 +1,6 @@
 import ResultBlock from '../components/ResultDisplay';
 import React, { Component } from 'react';
 import {StyleSheet,ScrollView, View, Text, TouchableOpacity } from 'react-native'
-import { defined } from 'react-native-reanimated';
 import AsyncStorage from '@react-native-community/async-storage'
 
 
@@ -13,6 +12,7 @@ class ResultScreen extends Component{
       resultArray: []
     };
 
+    /*
     AsyncStorage.getAllKeys((err, keys) => {
       AsyncStorage.multiGet(keys, (error, stores) => {
         stores.map((result, i, store) => {
@@ -21,7 +21,7 @@ class ResultScreen extends Component{
         });
       });
     });
-    
+    */
   }
 
   render() {
@@ -35,16 +35,15 @@ class ResultScreen extends Component{
       <ScrollView>
     <View style={styles.container}>
       <Text style={styles.text}>Result Screen</Text>
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Home')}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Home')}>
       <Text style={styles.buttonText}>Go to Home Screen</Text>
       </TouchableOpacity>
-      <Text> RESULATS!</Text>
+      <Text> ------------------------------ </Text>
       
       {this.state.resultArray.map((result,index) => {
             return (
             <TouchableOpacity key={index}
-              style={styles.resultButtonContainer}
-              onPress={() => this.props.navigation.navigate('Home')}>
+              style={styles.resultButtonContainer}>
               <ResultBlock key={index} dataBlock={result}></ResultBlock>
             </TouchableOpacity>)
             })}
@@ -95,10 +94,8 @@ export default ResultScreen
     }
   })
   var displayBlock = {
-    resultValue: 'Negative',
     accuracyPercentText: 100,
-    dateValue: '12/20/12',
-    timeValue: '12:12',
+    UTCTimestamp: Date.now(),
     resultState: 3
   }
 

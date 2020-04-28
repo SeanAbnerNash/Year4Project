@@ -1,10 +1,14 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
 
 function MainScreen(props) {
   const { navigation } = props
   return (
     <View style={styles.container}>
+      <Image
+        style={{width: 300, height: 200}}
+        source={require('../assets/images/Logo.png')}
+      />
       <Text style={styles.text}>Home Screen</Text>
       <TouchableOpacity
         style={styles.buttonContainer}
