@@ -77,29 +77,51 @@ sendToServer = async() =>
   console.log("FINISHED WITH THE PIC");
 
 
-  /*
-  Put a loading screen here.
-  Stuff Happens server gets data then sends it back.
-  */
+  //This is where sending the Picture as data should happen.
+/*
+var resultData = await fetch('194.128.86.6', {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    Answer: 'yourValue',
+    File: pictureData,
+    UserName:  'Username'
+    UserResult: ' UserResult'
+  }),
+});
 
- var randomNumber = Math.floor(Math.random() * 2) + 1;
- var randomNumber1 = Math.floor(Math.random() * 100) + 1;
+Result Data will have the result expected and the accuracy percentage.
+*/
 
+//Randomized Data is used for examples and testing.
+ var expectedResult = Math.floor(Math.random() * 2) + 1;
+ var accuracyPercentage = Math.floor(Math.random() * 100) + 1;
 
   var pictureData = {
-    accuracyPercentText: randomNumber1,
+    accuracyPercentText: accuracyPercentage,
     UTCTimestamp: Date.now(),
-    resultState: randomNumber
+    resultState: expectedResult
   }
 
-
+//Gets the stored Item. Sets the intial item in array if it was empty, add an element if it wasn't
   AsyncStorage.getItem("ResultStore").then((data) => {
     var userData = JSON.parse(data);
     console.log(userData, 'Get Values', userData.length);
-
-    userData.push(pictureData);
-    const bookmarksString = JSON.stringify(userData);
-    AsyncStorage.setItem('ResultStore',bookmarksString);
+    if(userData.length > 0)
+    {
+      userData.push(pictureData);
+      const pictureString = JSON.stringify(userData);
+      AsyncStorage.setItem('ResultStore',pictureString);
+    }
+    else
+    {
+      var temp = [pictureData];
+      const pictureString = JSON.stringify(temp);
+      AsyncStorage.setItem('ResultStore',pictureString);
+    }
  }).done();
 
   this.setState({loading: false});

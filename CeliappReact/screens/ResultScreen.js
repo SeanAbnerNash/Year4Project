@@ -11,17 +11,6 @@ class ResultScreen extends Component{
     this.state = {
       resultArray: []
     };
-
-    /*
-    AsyncStorage.getAllKeys((err, keys) => {
-      AsyncStorage.multiGet(keys, (error, stores) => {
-        stores.map((result, i, store) => {
-          console.log({ [store[i][0]]: store[i][1] });
-          return true;
-        });
-      });
-    });
-    */
   }
 
   render() {
@@ -52,14 +41,6 @@ class ResultScreen extends Component{
     </ScrollView>)
   }
 }
-
-/*
-Timestamp:
-Accuracy:
-Result:
-
-*/
-
 
 
 export default ResultScreen
@@ -93,9 +74,4 @@ export default ResultScreen
       color: '#fff'
     }
   })
-  var displayBlock = {
-    accuracyPercentText: 100,
-    UTCTimestamp: Date.now(),
-    resultState: 3
-  }
 

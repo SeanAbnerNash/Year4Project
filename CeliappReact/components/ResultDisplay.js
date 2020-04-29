@@ -31,7 +31,7 @@ export default class ResultBlock extends Component
             resultIcon =  <Image
             style={{width: 100, height: 100}}
             source={require('../assets/images/cross.png')}/>
-          break;
+          break;  
         case 3:
            this.props.dataBlock.resultText = "Inconclusive";
             resultIcon =  <Image

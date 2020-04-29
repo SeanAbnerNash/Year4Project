@@ -4,12 +4,7 @@ import AppNavigator from './navigation/AppNavigation'
 import AsyncStorage from '@react-native-community/async-storage'
 
 export default function App() {
-  var displayBlock = {
-    accuracyPercentText: 100,
-    UTCTimestamp: Date.now(),
-    resultState: 3
-  }
-  var testArray = [displayBlock];
+  var testArray = [];
   const bookmarksString = JSON.stringify(testArray);
   
   AsyncStorage.setItem('ResultStore',bookmarksString);
